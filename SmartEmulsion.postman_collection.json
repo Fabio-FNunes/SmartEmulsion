@@ -1,0 +1,566 @@
+{
+  "info": {
+    "_postman_id": "8b61c979-4456-467c-9531-8200fc4f8870",
+    "name": "SmartEmulsion",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50263999"
+  },
+  "item": [
+    {
+      "name": "Ler Sensores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/sensors",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "sensors"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/sensors'"
+      },
+      "response": []
+    },
+    {
+      "name": "Controlar Bomba",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/control/pump?action=on",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "control",
+            "pump"
+          ],
+          "query": [
+            {
+              "key": "action",
+              "value": "on"
+            }
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/control/pump?action=on'"
+      },
+      "response": []
+    },
+    {
+      "name": "Controlar Válvula",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/control/valve?action=on",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "control",
+            "valve"
+          ],
+          "query": [
+            {
+              "key": "action",
+              "value": "on"
+            }
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/control/valve?action=on'"
+      },
+      "response": []
+    },
+    {
+      "name": "Ligar/Desligar Buzzer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"state\": true }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/control/buzzer",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "control",
+            "buzzer"
+          ]
+        },
+        "description": "Generated from cURL: curl --location '{{base_url}}/api/control/buzzer' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"state\": true }'"
+      },
+      "response": []
+    },
+    {
+      "name": "Iniciar Enchimento",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"target_level_percent\": 80.5, \"target_oil_percent\": 15.0 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/control/fill/start",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "control",
+            "fill",
+            "start"
+          ]
+        },
+        "description": "Generated from cURL:  curl --location '{{base_url}}/api/control/fill/start' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"target_level_percent\": 80.5, \"target_oil_percent\": 15.0 }'"
+      },
+      "response": []
+    },
+    {
+      "name": "Cancelar Enchimento",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/control/fill/cancel",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "control",
+            "fill",
+            "cancel"
+          ]
+        },
+        "description": "Generated from cURL: curl --location '{{base_url}}/api/control/fill/cancel' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{}'"
+      },
+      "response": []
+    },
+    {
+      "name": "Listar Tanques",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/tanks'"
+      },
+      "response": []
+    },
+    {
+      "name": "Criar Tanque",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"id\": 1, \"name\": \"Nome do Tanque\", \"capacity\": 500, \"height\": 100 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/tanks",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks"
+          ]
+        },
+        "description": "Generated from cURL: curl --location '{{base_url}}/api/tanks' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"id\": 1, \"name\": \"Nome do Tanque\", \"capacity\": 500, \"height\": 100 }'"
+      },
+      "response": []
+    },
+    {
+      "name": "Sincronizar Tanque Ativo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"id\": 1, \"name\": \"Nome do Tanque\", \"capacity\": 500, \"height\": 100, \"calibration_factor\": -2.5 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/tanks/sync",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "sync"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "calibrar tanque",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"tank_id\": 1, \"current_level\": 50.5 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/tanks/calibrate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "calibrate"
+          ]
+        },
+        "description": "Generated from cURL: curl --location '{{base_url}}/api/tanks/calibrate' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"tank_id\": 1, \"current_level\": 50.5 }'"
+      },
+      "response": []
+    },
+    {
+      "name": "Apagar Tanque",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ver Histórico Completo do tanque",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1/history",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1",
+            "history"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/tanks/1/history'"
+      },
+      "response": []
+    },
+    {
+      "name": "Ver Histórico por tempo do tanque",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1/history_v2?period=7d",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1",
+            "history_v2"
+          ],
+          "query": [
+            {
+              "key": "period",
+              "value": "7d"
+            }
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/tanks/1/history_v2?period=7d'"
+      },
+      "response": []
+    },
+    {
+      "name": "Estatísticas de Abastecimento",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1/supply_stats?period=7d",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1",
+            "supply_stats"
+          ],
+          "query": [
+            {
+              "key": "period",
+              "value": "7d"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ver Histórico de Enchimentos do tanque",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1/refill_history",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1",
+            "refill_history"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/tanks/1/refill_history'"
+      },
+      "response": []
+    },
+    {
+      "name": "Ver Resumo Semanal do tanque",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/tanks/1/weekly",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "tanks",
+            "1",
+            "weekly"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/tanks/1/weekly'"
+      },
+      "response": []
+    },
+    {
+      "name": "Ver configuração de envio de e-mails",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/email/schedule",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "email",
+            "schedule"
+          ]
+        },
+        "description": "Generated from cURL:     curl --location '{{base_url}}/api/email/schedule'"
+      },
+      "response": []
+    },
+    {
+      "name": "Definir configuração de envio de e-mails",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"time_str\": \"19:00\", \"recipient\": \"destino@empresa.com\", \"sender_email\": \"teuemail@gmail.com\",\r\n  \"sender_password\": \"tua_password_app\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/email/schedule",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "email",
+            "schedule"
+          ]
+        },
+        "description": "Generated from cURL: curl --location '{{base_url}}/api/email/schedule' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"time_str\": \"19:00\", \"recipient\": \"destino@empresa.com\", \"sender_email\": \"teuemail@gmail.com\",\r\n  \"sender_password\": \"tua_password_app\" }'"
+      },
+      "response": []
+    },
+    {
+      "name": "Envio imediato de e-mail",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"recipient_email\": \"destino@empresa.com\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/email/send",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "email",
+            "send"
+          ]
+        },
+        "description": "Generated from cURL:  curl --location '{{base_url}}/api/email/send' \\\r\n    --header 'Content-Type: application/json' \\\r\n    --data '{ \"recipient_email\": \"destino@empresa.com\" }'"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    },
+    {
+      "key": "tanque",
+      "value": ""
+    },
+    {
+      "key": "porto",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

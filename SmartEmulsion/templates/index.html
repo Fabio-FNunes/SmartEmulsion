@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmulPro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="flex min-h-screen items-center justify-center bg-gray-500 overflow-hidden">
+      <!-- Contentor Principal 1280x720 -->
+      <div id="main-container" class="relative h-[720px] w-[1280px] overflow-hidden bg-[#cfccc4] font-sans shadow-2xl select-none border-4 border-white/20 origin-center transition-transform duration-300">
+        
+        <!-- SISTEMA DE NAVEGAÇÃO (CSS PURE) -->
+        <input type="radio" name="n" id="t-welcome" class="hidden" checked />
+        <input type="radio" name="n" id="t-intro" class="hidden" />
+        <input type="radio" name="n" id="t-criar" class="hidden" />
+        <input type="radio" name="n" id="t-home" class="hidden" />
+        <input type="radio" name="n" id="t-repor" class="hidden" />
+        <input type="radio" name="n" id="t-menu" class="hidden" />
+        <input type="radio" name="n" id="t-tanque" class="hidden" />
+        <input type="radio" name="n" id="t-st-ph" class="hidden" />
+        <input type="radio" name="n" id="t-st-oil" class="hidden" />
+        <input type="radio" name="n" id="t-st-lvl" class="hidden" />
+        <input type="radio" name="n" id="t-conf" class="hidden" />
+        <input type="radio" name="n" id="t-hist" class="hidden" />
+        <input type="radio" name="n" id="t-pred" class="hidden" />
+        <input type="radio" name="n" id="t-tuto" class="hidden" />
+        <input type="radio" name="n" id="t-pumping" class="hidden" />
+        <input type="radio" name="n" id="t-supply" class="hidden" />
+
+        <style>
+          /* Lógica de Troca de Ecrãs */
+          .v { display: none; height: 100%; width: 100%; flex-direction: column; }
+          #t-welcome:checked ~ #v-welcome, #t-intro:checked ~ #v-intro, #t-criar:checked ~ #v-criar, #t-home:checked ~ #v-home, #t-repor:checked ~ #v-repor, #t-menu:checked ~ #v-menu, #t-tanque:checked ~ #v-tanque, #t-st-ph:checked ~ #v-st-ph,
+          #t-st-oil:checked ~ #v-st-oil, #t-st-lvl:checked ~ #v-st-lvl, #t-conf:checked ~ #v-conf, #t-hist:checked ~ #v-hist,
+          #t-pred:checked ~ #v-pred, #t-tuto:checked ~ #v-tuto, #t-pumping:checked ~ #v-pumping, #t-supply:checked ~ #v-supply { display: flex; }
+
+          /* Estilo dos Gráficos */
+          .chart-box { width: 960px; height: 380px; margin: 0 auto; background: white; border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+
+          /* Estilo dos Sliders */
+          input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
+          input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 16px; cursor: pointer; background: #e5e7eb; border-radius: 10px; border: 1px solid #d1d5db; }
+          input[type=range]::-webkit-slider-thumb { height: 32px; width: 32px; border-radius: 50%; background: #60a5fa; cursor: pointer; -webkit-appearance: none; margin-top: -9px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+          input[type=range]:active::-webkit-slider-thumb { background: #3b82f6; transform: scale(1.1); }
+
+          input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        </style>
+
+        <!-- ========================================== 
+             ECRÃ: WELCOME (Página Inicial)
+        ========================================== -->
+        <div id="v-welcome" class="v">
+          <div class="flex-1 flex flex-col items-center justify-center gap-12 bg-gradient-to-br from-blue-50 to-gray-200">
+            <div class="text-center space-y-4">
+              <div class="mx-auto h-32 w-32 bg-blue-500 rounded-3xl flex items-center justify-center shadow-2xl mb-6 rotate-3">
+                <svg class="h-20 w-20 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.051.53l-.337.337A2 2 0 005.122 19.5l2.062.515a2 2 0 001.022-.036l1.246-.356a1 1 0 01.54 0l1.246.356a2 2 0 001.022.036l2.062-.515a2 2 0 001.46-1.92l-.337-.337zM9 9l3 3m0 0l3-3m-3 3V5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h1 class="text-7xl font-black text-gray-800 tracking-tighter">EmulPro</h1>
+              <p class="text-2xl font-bold text-blue-600/60 italic">Gestão Inteligente de Fluidos de Corte</p>
+            </div>
+            
+            <div class="flex gap-8">
+              <label for="t-intro" class="flex flex-col items-center justify-center h-48 w-72 rounded-[40px] bg-blue-600 text-white cursor-pointer shadow-2xl hover:bg-blue-700 transition active:scale-95 border-b-8 border-blue-900">
+                <svg class="h-16 w-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="text-3xl font-black italic">INICIAR</span>
+              </label>
+              
+              <label for="t-tuto" class="flex flex-col items-center justify-center h-48 w-72 rounded-[40px] bg-white text-gray-800 cursor-pointer shadow-2xl hover:bg-gray-50 transition active:scale-95 border-b-8 border-gray-300">
+                <svg class="h-16 w-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                <span class="text-3xl font-black italic">TUTORIAL</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: TUTORIAL
+        ========================================== -->
+        <div id="v-tuto" class="v">
+          <div class="flex-1 flex flex-col items-center justify-start pt-12 gap-8 bg-white">
+            <h1 class="text-5xl font-black text-gray-800 italic">Como utilizar o sistema?</h1>
+            
+            <div class="flex gap-6 px-10">
+              <div class="flex-1 bg-blue-50 p-8 rounded-[40px] border-b-8 border-blue-100 space-y-4">
+                <div class="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-black text-2xl">1</div>
+                <h3 class="text-2xl font-black text-blue-900">Criar Tanque</h3>
+                <p class="text-gray-600 font-bold italic">Comece por registar o seu tanque, definindo a capacidade em litros e a altura real em centímetros.</p>
+              </div>
+              
+              <div class="flex-1 bg-emerald-50 p-8 rounded-[40px] border-b-8 border-emerald-100 space-y-4">
+                <div class="h-12 w-12 bg-emerald-500 rounded-full flex items-center justify-center text-white font-black text-2xl">2</div>
+                <h3 class="text-2xl font-black text-emerald-900">Monitorizar</h3>
+                <p class="text-gray-600 font-bold italic">No dashboard, acompanhe em tempo real o pH, a concentração de óleo e o nível atual do líquido.</p>
+              </div>
+              
+              <div class="flex-1 bg-orange-50 p-8 rounded-[40px] border-b-8 border-orange-100 space-y-4">
+                <div class="h-12 w-12 bg-orange-500 rounded-full flex items-center justify-center text-white font-black text-2xl">3</div>
+                <h3 class="text-2xl font-black text-orange-900">Reposição</h3>
+                <p class="text-gray-600 font-bold italic">Utilize a função de reposição para que o sistema calcule e adicione automaticamente a mistura correta.</p>
+              </div>
+            </div>
+
+            <div class="mt-8 flex flex-col items-center gap-4">
+              <div class="bg-gray-100 p-6 rounded-3xl max-w-2xl text-center">
+                <p class="text-gray-500 font-bold italic text-lg">"O sistema garante que a emulsão se mantém nos níveis ótimos, aumentando a vida útil das ferramentas."</p>
+              </div>
+              <label for="t-welcome" class="mt-4 px-16 py-6 bg-gray-800 text-white font-black text-2xl rounded-3xl shadow-xl active:scale-95 transition cursor-pointer">ENTENDI!</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: INTRO (Seleção / Criação de Tanque)
+        ========================================== -->
+        <div id="v-intro" class="v">
+          <div class="flex-1 flex flex-col items-center justify-start pt-12 gap-8 bg-white/50 backdrop-blur-sm">
+            <div class="text-center space-y-2">
+              <h1 class="text-6xl font-black text-gray-800 tracking-tighter">EmulPro</h1>
+              <p class="text-2xl font-bold text-gray-500 italic">Selecione um tanque para iniciar</p>
+            </div>
+            <div id="tank-list" class="flex flex-wrap justify-center gap-6 px-10 max-h-[380px] overflow-y-auto py-4"></div>
+            <button onclick="openTankModal()" class="flex flex-col items-center justify-center h-20 w-64 rounded-2xl bg-gray-800 text-white cursor-pointer shadow-xl hover:bg-black transition active:scale-95 font-black text-xl mb-4">
+              + Novo Tanque
+            </button>
+            <label for="t-welcome" class="text-gray-500 font-bold cursor-pointer hover:text-gray-800 transition mb-8">Voltar para Início</label>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: CRIAR/EDITAR TANQUE
+        ========================================== -->
+        <div id="v-criar" class="v">
+          <div class="flex-1 flex flex-col items-center justify-center py-6 gap-4 bg-white/50 backdrop-blur-sm overflow-y-auto">
+            <div class="text-center">
+              <h1 id="tank-modal-title" class="text-4xl font-black text-gray-800 tracking-tighter">Configurar Tanque</h1>
+            </div>
+            <div class="w-[500px] bg-white rounded-[40px] p-8 shadow-2xl border-b-8 border-blue-100 space-y-4">
+              <input type="hidden" id="input-tank-id">
+              <div class="space-y-1">
+                <label class="text-sm font-black text-gray-400 italic uppercase">Nome do Tanque</label>
+                <input type="text" id="input-tank-name" class="w-full rounded-xl border-4 border-gray-100 bg-gray-50 p-3 text-black font-bold text-lg outline-none focus:border-blue-300">
+              </div>
+              
+              <div class="flex gap-4">
+                <div class="flex-1 space-y-1">
+                  <label class="text-sm font-black text-gray-400 italic uppercase">Capacidade (L)</label>
+                  <input type="number" id="input-tank-cap" readonly onclick="openNumpad('Capacidade (Litros)', v => inputTankCap.value = v)" class="w-full rounded-xl border-4 border-gray-100 bg-gray-50 p-3 text-black font-bold text-lg outline-none focus:border-blue-300 cursor-pointer text-center">
+                </div>
+                <div class="flex-1 space-y-1">
+                  <label class="text-sm font-black text-gray-400 italic uppercase">Altura (cm)</label>
+                  <input type="number" step="0.1" id="input-tank-height" readonly onclick="openNumpad('Altura (cm)', v => inputTankHeight.value = v)" class="w-full rounded-xl border-4 border-gray-100 bg-gray-50 p-3 text-black font-bold text-lg outline-none focus:border-blue-300 cursor-pointer text-center">
+                </div>
+              </div>
+
+              <div class="bg-blue-50 p-4 rounded-[25px] border-4 border-blue-100 space-y-2">
+                <label class="text-xs font-black text-blue-400 italic uppercase">Calibração: Altura Real Agora (cm)</label>
+                <input type="number" id="input-tank-calib" readonly onclick="openNumpad('Altura Real Agora (cm)', v => document.getElementById('input-tank-calib').value = v)" class="w-full rounded-xl border-4 border-white bg-white p-3 text-blue-600 font-bold text-lg outline-none focus:border-blue-300 cursor-pointer text-center" placeholder="Opcional">
+                <p class="text-[9px] font-bold text-blue-300 leading-tight text-center">Introduza a altura da água neste momento para auto-calibrar.</p>
+              </div>
+
+              <div class="flex flex-col gap-3 pt-2">
+                <div class="flex gap-4">
+                  <label for="t-intro" class="flex-1 flex cursor-pointer items-center justify-center rounded-xl bg-rose-100 border-4 border-rose-200 py-3 text-lg font-black text-rose-900 shadow-md active:scale-95 transition">Cancelar</label>
+                  <button onclick="salvarTanque()" id="btn-save-tank" class="flex-1 rounded-xl bg-[#a8e6b3] border-4 border-[#86d895] py-3 text-lg font-black text-green-950 shadow-md active:scale-95 transition">Gravar</button>
+                </div>
+                <button onclick="removeTankFromEdit()" id="btn-delete-tank" class="hidden w-full rounded-xl bg-rose-500 border-4 border-rose-600 py-3 text-lg font-black text-white shadow-md active:scale-95 transition">Eliminar Tanque</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: HOME (Menu Inicial)
+        ========================================== -->
+        <div id="v-home" class="v">
+          <div class="flex h-[120px] items-center justify-between px-10 pt-4">
+            <label for="t-menu" class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-xl bg-gray-800 shadow-md hover:bg-black transition active:scale-95">
+              <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round"/></svg>
+            </label>
+            <div class="rounded-xl border-2 border-green-900 bg-orange-200 px-6 py-3 text-right text-black shadow-lg">
+              <p class="text-2xl font-black tracking-tighter italic">Tanque: <span id="home-tank-title">---</span></p>
+            </div>
+          </div>
+          
+          <div id="alert-container" class="w-[900px] mx-auto -mt-2 mb-2 z-50 hidden">
+             <div class="bg-red-100 border-4 border-red-500 rounded-3xl p-4 shadow-xl flex items-center justify-between gap-4 animate-pulse" id="alert-box">
+                <div class="flex items-center gap-4">
+                  <svg class="h-10 w-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                  <div id="alert-message" class="text-xl font-black text-red-800 text-left leading-tight"></div>
+                </div>
+                <button onclick="muteBuzzer()" id="btn-mute-buzzer" class="bg-red-500 text-white font-black px-6 py-3 rounded-xl shadow hover:bg-red-600 active:scale-95 transition whitespace-nowrap">Desligar Som</button>
+             </div>
+          </div>
+
+          <div class="flex flex-1 items-center justify-center gap-10 px-10">
+            <div class="flex h-[320px] w-[280px] flex-col items-center justify-between rounded-3xl bg-white py-8 shadow-xl border-4 border-blue-400 ">
+              <h2 class="text-xl font-black text-gray-400 italic">pH</h2>
+              <div class="h-20 w-20 bg-amber-100 rounded-full flex items-center justify-center">
+                <svg class="h-12 w-12 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.051.53l-.337.337A2 2 0 005.122 19.5l2.062.515a2 2 0 001.022-.036l1.246-.356a1 1 0 01.54 0l1.246.356a2 2 0 001.022.036l2.062-.515a2 2 0 001.46-1.92l-.337-.337zM9 9l3 3m0 0l3-3m-3 3V5"></path></svg>
+              </div>
+              <p id="ui-ph" class="text-6xl font-black text-gray-900 tracking-tighter">7.00</p>
+            </div>
+            <div id="card-oil" class="flex h-[320px] w-[280px] flex-col items-center justify-between rounded-3xl bg-white py-8 shadow-xl border-4 border-green-400 transition-colors duration-500">
+              <h2 class="text-xl font-black text-gray-400 italic text-center">Óleo (%)</h2>
+              <div class="h-20 w-20 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg class="h-12 w-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.051.53l-.337.337A2 2 0 005.122 19.5l2.062.515a2 2 0 001.022-.036l1.246-.356a1 1 0 01.54 0l1.246.356a2 2 0 001.022.036l2.062-.515a2 2 0 001.46-1.92l-.337-.337z"></path></svg>
+              </div>
+              <p id="ui-oil" class="text-6xl font-black text-gray-900 tracking-tighter">0.0%</p>
+            </div>
+            <div id="card-level" class="flex h-[320px] w-[280px] flex-col items-center justify-between rounded-3xl bg-white py-8 shadow-xl border-4 border-green-400 transition-colors duration-500">
+              <h2 class="text-xl font-black text-gray-400 italic">Nível</h2>
+              <div class="h-20 w-20 bg-emerald-100 rounded-full flex items-center justify-center">
+                <svg class="h-12 w-12 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10m9-10V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v10m9-10h2a2 2 0 002-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v5m-3 0V9"></path></svg>
+              </div>
+              <div class="text-center">
+                <p id="ui-level-percent" class="text-6xl font-black text-blue-500 tracking-tighter">0%</p>
+                <p class="text-lg font-bold text-blue-400 mt-1"><span id="home-vol-atual">0</span>L / <span id="home-vol-total">500</span>L</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex h-[140px] items-start justify-center gap-10">
+            <label for="t-tanque" class="flex h-20 w-[440px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-2xl font-black text-green-950 shadow-lg active:scale-95 transition">Visualizar Tanque</label>
+            <label for="t-repor" class="flex h-20 w-[440px] cursor-pointer items-center justify-center rounded-2xl bg-blue-400 text-2xl font-black text-white shadow-lg active:scale-95 transition">Repor Líquido</label>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: REPOSIÇÃO
+        ========================================== -->
+        <div id="v-repor" class="v">
+          <div class="h-[80px] flex items-center justify-center text-4xl font-black pt-6 tracking-widest text-gray-900 italic">Encher Tanque</div>
+          <div class="flex flex-1 items-center justify-center gap-8 px-10">
+            <div class="w-1/2 bg-white rounded-[40px] p-10 shadow-2xl border-b-8 border-blue-100 space-y-10 relative">
+              <div class="space-y-4">
+                <div class="flex justify-between items-end">
+                  <label class="text-lg font-black text-gray-400 italic">Concentração Alvo</label>
+                  <span class="text-4xl font-black text-blue-500"><span id="val-oil-txt">6.0</span>%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button onclick="adjustSlider('range-oil', -0.1)" class="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-black text-gray-600 active:scale-90">-</button>
+                  <input type="range" id="range-oil" min="0" max="10" step="0.1" value="6.0" class="flex-1">
+                  <button onclick="adjustSlider('range-oil', 0.1)" class="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-black text-gray-600 active:scale-90">+</button>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <div class="flex justify-between items-end">
+                  <label class="text-lg font-black text-gray-400 italic">Nível Final Alvo</label>
+                  <span class="text-4xl font-black text-blue-500"><span id="val-lvl-txt">90</span>%</span>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button onclick="adjustSlider('range-lvl', -1)" class="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-black text-gray-600 active:scale-90">-</button>
+                  <input type="range" id="range-lvl" min="0" max="100" step="1" value="90" class="flex-1">
+                  <button onclick="adjustSlider('range-lvl', 1)" class="h-12 w-12 bg-gray-200 rounded-full flex items-center justify-center text-3xl font-black text-gray-600 active:scale-90">+</button>
+                </div>
+              </div>
+              <button onclick="confirmarReposicao()" class="flex h-20 w-full cursor-pointer items-center justify-center rounded-2xl bg-emerald-100 border-4 border-emerald-200 text-2xl font-black text-emerald-900 shadow-xl active:scale-95">Confirmar Mistura</button>
+            </div>
+            <div class="w-1/2 flex flex-col gap-4">
+              <div class="bg-gray-800 rounded-[30px] p-6 text-white shadow-xl border-l-8 border-yellow-400">
+                <h3 class="text-yellow-400 font-black text-xs tracking-widest uppercase mb-1">Óleo a adicionar</h3>
+                <p class="text-5xl font-black text-yellow-300 tracking-tighter"><span id="res-oleo-val">0.0</span><span class="text-xl ml-1">L</span></p>
+              </div>
+              <div class="bg-gray-800 rounded-[30px] p-6 text-white shadow-xl border-l-8 border-blue-400">
+                <h3 class="text-blue-400 font-black text-xs tracking-widest uppercase mb-1">Água a adicionar</h3>
+                <p class="text-5xl font-black text-blue-300 tracking-tighter"><span id="res-agua-val">0.0</span><span class="text-xl ml-1">L</span></p>
+              </div>
+              <div class="bg-white rounded-[20px] p-4 text-center border-4 border-gray-200 shadow-md">
+                <div class="italic text-gray-500 font-bold text-sm mb-2">Volume Total Final: <span id="info-vol-txt" class="text-blue-500 font-black text-lg">0L</span></div>
+              </div>
+              
+              <!-- MODO MANUAL -->
+              <div class="flex gap-4 mt-2">
+                <button onclick="addManual('water')" class="flex-1 bg-blue-500 text-white py-4 rounded-2xl font-black text-lg active:scale-95 shadow-md transition hover:bg-blue-600">+ ÁGUA (Manual)</button>
+                <button onclick="addManual('oil')" class="flex-1 bg-yellow-500 text-white py-4 rounded-2xl font-black text-lg active:scale-95 shadow-md transition hover:bg-yellow-600">+ ÓLEO (Manual)</button>
+              </div>
+
+            </div>
+          </div>
+          <div class="h-[100px] flex justify-center items-start"><label for="t-home" class="h-14 w-[250px] bg-rose-100 border-4 border-rose-200 text-rose-900 font-black flex items-center justify-center rounded-xl cursor-pointer shadow-lg active:scale-95 transition">Voltar</label></div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: PUMPING (MODAL OVERLAY)
+        ========================================== -->
+        <div id="v-pumping" class="v absolute inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center">
+          <div class="bg-white rounded-[50px] p-16 shadow-2xl border-b-[12px] border-blue-200 text-center space-y-10 scale-110">
+            <div class="relative mx-auto h-32 w-32">
+              <div class="absolute inset-0 rounded-full border-8 border-blue-100"></div>
+              <div class="absolute inset-0 rounded-full border-8 border-blue-500 border-t-transparent animate-spin"></div>
+            </div>
+            <div class="space-y-4">
+              <h2 class="text-5xl font-black text-gray-800 italic tracking-tighter">Bomba Ativa</h2>
+              <p class="text-2xl font-bold text-gray-400 italic">Adicionando óleo à mistura...</p>
+            </div>
+            <div class="pt-6">
+              <button onclick="cancelarEnchimento()" class="px-16 py-6 bg-rose-500 text-white font-black text-2xl rounded-3xl shadow-xl active:scale-95 transition-all hover:bg-rose-600 border-b-8 border-rose-700">PAUSAR / CANCELAR</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: MENU
+        ========================================== -->
+        <div id="v-menu" class="v">
+          <div class="flex h-[120px] items-center justify-center pt-8 font-black text-5xl tracking-[0.3em] text-gray-900 border-b-4 border-gray-800 mx-auto w-fit px-12 italic">Menu</div>
+          <div class="flex flex-1 flex-col items-center justify-center gap-6 px-10">
+            <div class="flex gap-6">
+              <label for="t-intro" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-xl font-black text-white shadow-md active:scale-90">Gestão de Tanques</label>
+              <label for="t-st-ph" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Histórico de pH</label>
+              <label for="t-st-oil" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Histórico de Óleo</label>
+            </div>
+            <div class="flex gap-6">
+              <label for="t-st-lvl" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Histórico de Nível</label>
+              <label for="t-supply" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Gestão de Abastecimento</label>
+              <label for="t-conf" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Configurações</label>
+            </div>
+            <div class="flex gap-6">
+              <label for="t-hist" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-[#a8e6b3] text-xl font-black text-green-950 shadow-md active:scale-90">Tabela Semanal</label>
+              <button onclick="closeApp()" class="flex h-[90px] w-[340px] cursor-pointer items-center justify-center rounded-2xl bg-rose-500 text-xl font-black text-white shadow-md active:scale-90">Fechar Aplicação</button>
+            </div>
+          </div>
+          <div class="flex h-[120px] items-start justify-center"><label for="t-home" class="flex h-16 w-[300px] cursor-pointer items-center justify-center rounded-xl bg-rose-100 border-4 border-rose-200 text-rose-900 text-2xl font-black shadow-lg active:scale-95 transition">Voltar</label></div>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: GESTÃO DE ABASTECIMENTO
+        ========================================== -->
+        <div id="v-supply" class="v">
+          <div class="h-[100px] flex items-center justify-center text-3xl font-black pt-6 italic">Gestão de Abastecimento</div>
+          <div class="flex justify-center gap-4 mb-8">
+            <button onclick="updateSupplyStats('day', event)" class="supply-btn px-8 py-3 bg-blue-600 text-white rounded-full font-bold shadow-md active:scale-95">Dia</button>
+            <button onclick="updateSupplyStats('week', event)" class="supply-btn px-8 py-3 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Semana</button>
+            <button onclick="updateSupplyStats('month', event)" class="supply-btn px-8 py-3 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Mês</button>
+          </div>
+          <div class="flex items-center justify-center gap-12 px-20 mb-10">
+             <div class="flex-1 bg-white rounded-[40px] p-8 shadow-2xl border-b-8 border-blue-100 flex flex-col items-center justify-center gap-2">
+                <h3 class="text-xl font-black text-gray-400 italic">Água Consumida</h3>
+                <div class="text-6xl font-black text-blue-500 tracking-tighter"><span id="supply-water">0</span><span class="text-2xl ml-2">L</span></div>
+             </div>
+             <div class="flex-1 bg-white rounded-[40px] p-8 shadow-2xl border-b-8 border-yellow-100 flex flex-col items-center justify-center gap-2">
+                <h3 class="text-xl font-black text-gray-400 italic">Óleo Consumido</h3>
+                <div class="text-6xl font-black text-yellow-500 tracking-tighter"><span id="supply-oil">0.0</span><span class="text-2xl ml-2">L</span></div>
+             </div>
+          </div>
+          
+          <!-- Histórico Detalhado de Abastecimentos -->
+          <div class="flex-1 px-20 overflow-y-auto mb-6">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
+                <table class="w-full text-center">
+                    <thead class="bg-gray-800 text-white font-black">
+                        <tr>
+                            <th class="p-4">Data e Hora</th>
+                            <th class="p-4">Água Adicionada</th>
+                            <th class="p-4">Óleo Adicionado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="refill-history-body" class="text-gray-700 font-bold">
+                        <!-- Preenchido via JS -->
+                    </tbody>
+                </table>
+            </div>
+          </div>
+
+          <label for="t-menu" class="mb-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer">Voltar</label>
+        </div>
+
+        <!-- ========================================== 
+             ECRÃ: CONFIGURAÇÕES
+        ========================================== -->
+        <div id="v-conf" class="v">
+          <div class="h-[70px] flex items-center justify-center text-4xl font-black pt-2 tracking-tighter italic">Configurações</div>
+          <div class="flex flex-1 gap-10 px-12 pb-4">
+             <div class="flex-1 bg-white rounded-3xl p-8 shadow-xl border-t-8 border-gray-200 space-y-4 italic font-black text-gray-500">
+               <h3 class="text-xl text-gray-800 mb-4">Configurações de E-mail</h3>
+               <div class="flex flex-col"><label class="text-sm">Destinatário:</label><input type="text" id="email-recipient" value="admin@emulpro.com" onchange="updateEmailSchedule()" class="bg-gray-50 border-2 p-2 rounded-xl text-black"></div>
+               <div class="flex flex-col"><label class="text-sm">Email Emissor:</label><input type="text" id="sender-email" value="f.f.nunes2005@gmail.com" onchange="updateEmailSchedule()" class="bg-gray-50 border-2 p-2 rounded-xl text-black"></div>
+               <div class="flex flex-col"><label class="text-sm">Senha Emissor:</label><input type="password" id="sender-password" value="kgdddkiqsozauqxb" onchange="updateEmailSchedule()" class="bg-gray-50 border-2 p-2 rounded-xl text-black"></div>
+               <div class="flex flex-col">
+                 <label class="text-sm">Horário Relatório:</label>
+                 <div class="flex items-center justify-center gap-4 mt-2">
+                   <div class="flex flex-col items-center">
+                     <button onclick="adjustTime('h', 1)" class="bg-gray-200 hover:bg-gray-300 w-16 h-10 rounded-t-xl text-xl font-bold flex items-center justify-center active:scale-95 transition-transform cursor-pointer">▲</button>
+                     <div id="email-schedule-h" class="w-16 bg-gray-50 border-x-2 py-2 text-3xl font-black text-center text-black">19</div>
+                     <button onclick="adjustTime('h', -1)" class="bg-gray-200 hover:bg-gray-300 w-16 h-10 rounded-b-xl text-xl font-bold flex items-center justify-center active:scale-95 transition-transform cursor-pointer">▼</button>
+                   </div>
+                   <div class="text-4xl font-black text-gray-400 pb-2">:</div>
+                   <div class="flex flex-col items-center">
+                     <button onclick="adjustTime('m', 15)" class="bg-gray-200 hover:bg-gray-300 w-16 h-10 rounded-t-xl text-xl font-bold flex items-center justify-center active:scale-95 transition-transform cursor-pointer">▲</button>
+                     <div id="email-schedule-m" class="w-16 bg-gray-50 border-x-2 py-2 text-3xl font-black text-center text-black">00</div>
+                     <button onclick="adjustTime('m', -15)" class="bg-gray-200 hover:bg-gray-300 w-16 h-10 rounded-b-xl text-xl font-bold flex items-center justify-center active:scale-95 transition-transform cursor-pointer">▼</button>
+                   </div>
+                 </div>
+               </div>
+               <button id="btn-send-email" onclick="sendReportEmail()" class="w-full bg-[#a8e6b3] py-4 rounded-2xl text-green-950 text-xl font-black shadow-md mt-6 active:scale-95 transition-transform cursor-pointer">Enviar Agora</button>
+             </div>
+             <div class="w-[400px] bg-white rounded-3xl p-8 shadow-xl border-t-8 border-blue-400 flex flex-col justify-between italic font-black text-gray-400">
+               <div class="space-y-6">
+                 <h3 class="text-xl text-gray-800">Tanque Selecionado</h3>
+                 <div><label class="text-sm">Capacidade:</label><div class="text-4xl text-blue-500"><span id="val-cap-txt">500</span>L</div></div>
+                 <div><label class="text-sm">Altura:</label><div class="text-4xl text-blue-500"><span id="val-height-txt">500</span>cm</div></div>
+               </div>
+               <div class="space-y-3">
+                 <button onclick="openTankModal()" class="w-full bg-gray-800 py-4 rounded-2xl text-white text-xl font-black text-center cursor-pointer active:scale-95 shadow-md">+ Novo Tanque</button>
+                 <label for="t-intro" class="w-full bg-rose-100 py-4 rounded-2xl text-rose-900 text-xl font-black text-center cursor-pointer active:scale-95 block">Sair / Trocar Tanque</label>
+               </div>
+             </div>
+          </div>
+          <div class="h-[80px] flex justify-center"><label for="t-menu" class="h-14 w-[200px] bg-gray-100 flex items-center justify-center rounded-xl font-black cursor-pointer">Voltar</label></div>
+        </div>
+
+        <!-- Ecrãs de Histórico -->
+        <div id="v-st-ph" class="v">
+          <div class="h-[100px] flex items-center justify-center text-3xl font-black pt-6 italic">Histórico de pH</div>
+          <div class="flex justify-center gap-4 mb-4">
+            <button onclick="updateHistory('ph', 'day', event)" class="period-btn px-6 py-2 bg-blue-600 text-white rounded-full font-bold shadow-md active:scale-95">Dia</button>
+            <button onclick="updateHistory('ph', 'week', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Semana</button>
+            <button onclick="updateHistory('ph', 'month', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Mês</button>
+          </div>
+          <div class="chart-box"><svg id="svg-ph" class="h-full w-full" viewBox="0 0 880 300"><polyline id="poly-ph" points="" fill="none" stroke="#f59e0b" stroke-width="4" /></svg></div>
+          <label for="t-menu" class="mt-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer">Voltar</label>
+        </div>
+        <div id="v-st-oil" class="v">
+          <div class="h-[100px] flex items-center justify-center text-3xl font-black pt-6 italic">Histórico de Óleo</div>
+          <div class="flex justify-center gap-4 mb-4">
+            <button onclick="updateHistory('oil', 'day', event)" class="period-btn px-6 py-2 bg-blue-600 text-white rounded-full font-bold shadow-md active:scale-95">Dia</button>
+            <button onclick="updateHistory('oil', 'week', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Semana</button>
+            <button onclick="updateHistory('oil', 'month', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Mês</button>
+          </div>
+          <div class="chart-box"><svg id="svg-oil" class="h-full w-full" viewBox="0 0 880 300"><polyline id="poly-oil" points="" fill="none" stroke="#60a5fa" stroke-width="4" /></svg></div>
+          <label for="t-menu" class="mt-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer">Voltar</label>
+        </div>
+        <div id="v-st-lvl" class="v">
+          <div class="h-[100px] flex items-center justify-center text-3xl font-black pt-6 italic">Histórico de Nível</div>
+          <div class="flex justify-center gap-4 mb-4">
+            <button onclick="updateHistory('level', 'day', event)" class="period-btn px-6 py-2 bg-blue-600 text-white rounded-full font-bold shadow-md active:scale-95">Dia</button>
+            <button onclick="updateHistory('level', 'week', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Semana</button>
+            <button onclick="updateHistory('level', 'month', event)" class="period-btn px-6 py-2 bg-white text-gray-600 rounded-full font-bold shadow-md active:scale-95">Mês</button>
+          </div>
+          <div class="chart-box"><svg id="svg-level" class="h-full w-full" viewBox="0 0 880 300"><polyline id="poly-level" points="" fill="none" stroke="#10b981" stroke-width="4" /></svg></div>
+          <label for="t-menu" class="mt-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer">Voltar</label>
+        </div>
+        <div id="v-hist" class="v">
+          <div class="mx-auto w-[1000px] mt-20 bg-white rounded-3xl p-10 shadow-2xl">
+            <table class="w-full text-center"><thead><tr class="bg-gray-800 text-white font-black"><th class="p-4">Data</th><th class="p-4">pH Máx</th><th class="p-4">Óleo Máx</th><th class="p-4">Nível Médio</th></tr></thead><tbody id="weekly-body"></tbody></table>
+          </div>
+          <label for="t-menu" class="mt-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer">Voltar</label>
+        </div>
+        <div id="v-tanque" class="v">
+          <div class="flex-1 flex flex-row items-center justify-center gap-16 w-full px-10">
+            <div class="h-[500px] w-[300px] border-8 border-gray-800 rounded-b-3xl bg-white relative flex flex-col justify-end overflow-hidden shadow-2xl">
+              <div id="ui-tank-bar" class="bg-blue-400 w-full transition-all duration-1000" style="height:0%"></div>
+            </div>
+            
+            <div class="bg-white rounded-3xl p-8 shadow-xl flex flex-col gap-5 min-w-[400px]">
+                <h3 class="text-3xl font-black text-gray-800 border-b-4 border-blue-100 pb-4 mb-2 text-center">Dados do Tanque</h3>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Nível:</span> <span id="vt-level" class="text-3xl font-black text-blue-600">0.0%</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Volume Total:</span> <span id="vt-volume" class="text-3xl font-black text-blue-600">0.0 L</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Volume Água:</span> <span id="vt-vol-water" class="text-3xl font-black text-blue-400">0.0 L</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Volume Óleo:</span> <span id="vt-vol-oil" class="text-3xl font-black text-yellow-500">0.0 L</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Conc. de Óleo:</span> <span id="vt-oil" class="text-3xl font-black text-yellow-500">0.0%</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">pH:</span> <span id="vt-ph" class="text-3xl font-black text-orange-500">0.00</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Turbidez:</span> <span id="vt-turbidity" class="text-3xl font-black text-gray-600">0.0 NTU</span></div>
+                <div class="flex justify-between items-center"><span class="text-gray-500 font-bold text-xl">Condutividade:</span> <span id="vt-conductivity" class="text-3xl font-black text-gray-600">0.0 µS</span></div>
+            </div>
+          </div>
+          <label for="t-home" class="mb-10 mx-auto bg-gray-200 px-10 py-4 rounded-xl font-black cursor-pointer hover:bg-gray-300 transition shadow-md">Voltar</label>
+        </div>
+
+        <!-- ========================================== 
+             MODAL: TECLADO NUMÉRICO (Virtual Numpad)
+        ========================================== -->
+        <div id="v-numpad" class="absolute inset-0 z-[60] bg-black/80 backdrop-blur-sm flex items-center justify-center hidden">
+          <div class="bg-white rounded-[40px] p-8 shadow-2xl w-[450px] flex flex-col gap-6 scale-110">
+            <div class="text-center">
+              <h3 id="numpad-title" class="text-2xl font-black text-gray-800 italic">Adicionar Litros</h3>
+              <div id="numpad-display" class="bg-gray-100 rounded-2xl p-6 mt-4 text-5xl font-black text-blue-600 text-right border-4 border-gray-200 min-h-[100px] flex items-center justify-end">0</div>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <button onclick="numpadPress('7')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">7</button>
+              <button onclick="numpadPress('8')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">8</button>
+              <button onclick="numpadPress('9')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">9</button>
+              <button onclick="numpadPress('4')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">4</button>
+              <button onclick="numpadPress('5')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">5</button>
+              <button onclick="numpadPress('6')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">6</button>
+              <button onclick="numpadPress('1')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">1</button>
+              <button onclick="numpadPress('2')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">2</button>
+              <button onclick="numpadPress('3')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">3</button>
+              <button onclick="numpadPress('.')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">.</button>
+              <button onclick="numpadPress('0')" class="h-20 bg-gray-100 rounded-2xl text-3xl font-black active:bg-blue-100 shadow-sm">0</button>
+              <button onclick="numpadPress('C')" class="h-20 bg-rose-100 text-rose-600 rounded-2xl text-3xl font-black active:bg-rose-200 shadow-sm">C</button>
+            </div>
+            <div class="flex gap-4 mt-2">
+              <button onclick="closeNumpad()" class="flex-1 h-20 bg-gray-200 rounded-2xl text-xl font-black text-gray-600 shadow-md">Cancelar</button>
+              <button onclick="confirmNumpad()" class="flex-1 h-20 bg-[#a8e6b3] rounded-2xl text-xl font-black text-green-950 border-b-8 border-green-600 shadow-md">Confirmar</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      let tanks = [];
+      let currentTankId = null;
+      let globalCapacity = 500;
+      let globalHeight = 500;
+      
+      // Estado do Numpad
+      let numpadCallback = null;
+      let numpadValue = "0";
+
+      const tankListContainer = document.getElementById('tank-list');
+      const homeTankTitle = document.getElementById('home-tank-title');
+      const inputTankId = document.getElementById('input-tank-id');
+      const inputTankName = document.getElementById('input-tank-name');
+      const inputTankCap = document.getElementById('input-tank-cap');
+      const inputTankHeight = document.getElementById('input-tank-height');
+      const rangeOil = document.getElementById('range-oil');
+      const rangeLvl = document.getElementById('range-lvl');
+      const resOleoVal = document.getElementById('res-oleo-val');
+
+      function adjustSlider(id, delta) {
+        const slider = document.getElementById(id);
+        slider.value = (parseFloat(slider.value) + delta).toFixed(1);
+        atualizarCalculos();
+      }
+
+      function openNumpad(title, callback) {
+        document.getElementById('numpad-title').textContent = title;
+        numpadValue = "0";
+        document.getElementById('numpad-display').textContent = numpadValue;
+        numpadCallback = callback;
+        document.getElementById('v-numpad').classList.remove('hidden');
+      }
+
+      function numpadPress(val) {
+        if (val === 'C') {
+          numpadValue = "0";
+        } else if (val === '.') {
+          if (!numpadValue.includes('.')) numpadValue += '.';
+        } else {
+          if (numpadValue === "0") numpadValue = val;
+          else if (numpadValue.length < 8) numpadValue += val;
+        }
+        document.getElementById('numpad-display').textContent = numpadValue;
+      }
+
+      function closeNumpad() {
+        document.getElementById('v-numpad').classList.add('hidden');
+      }
+
+      function confirmNumpad() {
+        const val = parseFloat(numpadValue);
+        if (numpadCallback) numpadCallback(val);
+        closeNumpad();
+      }
+
+      async function callApi(path, body = null) {
+        if (window.pywebview && window.pywebview.api) {
+          if (path === '/api/sensors') return await window.pywebview.api.get_sensors();
+          if (path === '/api/tanks') return await window.pywebview.api.get_tanks();
+          if (path === '/api/save_tank') return await window.pywebview.api.save_tank(body);
+          if (path === '/api/delete_tank') return await window.pywebview.api.delete_tank(body);
+          if (path === '/api/sync_tank') return await window.pywebview.api.sync_tank(body);
+          if (path === '/api/fill') return await window.pywebview.api.trigger_fill(body);
+          if (path === '/api/cancel') return await window.pywebview.api.cancel_fill();
+          if (path === '/api/history') return await window.pywebview.api.get_history(currentTankId);
+          if (path === '/api/history_v2') return await window.pywebview.api.get_history_v2(currentTankId, body);
+          if (path === '/api/weekly') return await window.pywebview.api.get_weekly(currentTankId);
+          if (path === '/api/supply_stats') return await window.pywebview.api.get_supply_stats(currentTankId, body);
+          if (path === '/api/refill_history') return await window.pywebview.api.get_refill_history(currentTankId);
+          if (path === '/api/close_app') return await window.pywebview.api.close_app();
+          if (path === '/api/buzzer') return await window.pywebview.api.set_buzzer(body);
+          if (path === '/api/send_email') return await window.pywebview.api.send_email(body);
+          if (path === '/api/set_email_schedule') return await window.pywebview.api.set_email_schedule(body.time, body.recipient, body.senderEmail, body.senderPassword);
+          if (path === '/api/get_email_schedule') return await window.pywebview.api.get_email_schedule();
+        }
+        return null;
+      }
+
+      async function closeApp() {
+        if (confirm("Deseja mesmo fechar a aplicação?")) {
+          await callApi('/api/close_app');
+        }
+      }
+
+      async function renderRefillHistory() {
+        const data = await callApi('/api/refill_history');
+        const body = document.getElementById('refill-history-body');
+        if (!body || !data) return;
+        body.innerHTML = '';
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.className = "border-b hover:bg-gray-50 transition";
+          tr.innerHTML = `
+            <td class="p-4 font-bold text-gray-500">${row.timestamp}</td>
+            <td class="p-4 text-blue-600 font-black">${row.water_liters.toFixed(1)}L</td>
+            <td class="p-4 text-yellow-600 font-black">${row.oil_liters.toFixed(1)}L</td>
+          `;
+          body.appendChild(tr);
+        });
+      }
+
+      async function updateSupplyStats(period, event) {
+        if (event) {
+          const parent = event.target.parentElement;
+          parent.querySelectorAll('.supply-btn').forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-600');
+          });
+          event.target.classList.add('bg-blue-600', 'text-white');
+          event.target.classList.remove('bg-white', 'text-gray-600');
+        }
+
+        const data = await callApi('/api/supply_stats', period);
+        if (data) {
+          document.getElementById('supply-water').textContent = data.water.toFixed(0);
+          document.getElementById('supply-oil').textContent = data.oil.toFixed(1);
+        }
+      }
+
+      async function updateHistory(sensor, period, event) {
+        if (event) {
+          // Atualizar estilo dos botões
+          const parent = event.target.parentElement;
+          parent.querySelectorAll('.period-btn').forEach(btn => {
+            btn.classList.remove('bg-blue-600', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-600');
+          });
+          event.target.classList.add('bg-blue-600', 'text-white');
+          event.target.classList.remove('bg-white', 'text-gray-600');
+        }
+
+        const data = await callApi('/api/history_v2', period);
+        if (data) drawChart(sensor, data);
+      }
+
+      function drawChart(sensor, data) {
+        const svg = document.getElementById(`svg-${sensor}`);
+        const poly = document.getElementById(`poly-${sensor}`);
+        if (!svg || !poly) return;
+
+        // Limpar elementos antigos de escala
+        svg.querySelectorAll('.scale-element').forEach(el => el.remove());
+
+        const width = 880;
+        const height = 300;
+        const paddingY = 20;
+        const paddingX = 50;
+
+        // Determinar limites Y baseados no sensor
+        let minVal = 0, maxVal = 100;
+        if (sensor === 'ph') { minVal = 0; maxVal = 14; }
+        else if (sensor === 'oil') { minVal = 0; maxVal = 20; } // Óleo costuma ser baixo %
+        else if (sensor === 'level') { minVal = 0; maxVal = 100; }
+
+        // Ajustar maxVal se os dados forem maiores
+        if (data && data.length > 0) {
+            data.forEach(d => { if (d[sensor] > maxVal) maxVal = d[sensor] + 2; });
+        }
+
+        // Desenhar a grelha/escala
+        const steps = 4;
+        for(let i = 0; i <= steps; i++) {
+           const val = minVal + (maxVal - minVal) * (i / steps);
+           const y = height - paddingY - (i / steps) * (height - paddingY * 2);
+           
+           // label
+           const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+           text.setAttribute("x", "5");
+           text.setAttribute("y", y + 5);
+           text.setAttribute("fill", "#9ca3af");
+           text.setAttribute("font-size", "14px");
+           text.setAttribute("font-weight", "bold");
+           text.setAttribute("class", "scale-element");
+           text.textContent = val.toFixed(1) + (sensor !== 'ph' ? '%' : '');
+           svg.insertBefore(text, poly);
+
+           // line
+           const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+           line.setAttribute("x1", paddingX);
+           line.setAttribute("y1", y);
+           line.setAttribute("x2", width);
+           line.setAttribute("y2", y);
+           line.setAttribute("stroke", "#e5e7eb");
+           line.setAttribute("stroke-dasharray", "5,5");
+           line.setAttribute("class", "scale-element");
+           svg.insertBefore(line, poly);
+        }
+
+        if (!data || data.length < 2) {
+          poly.setAttribute('points', "");
+          return;
+        }
+
+        const points = data.map((d, i) => {
+          const x = paddingX + (i / (data.length - 1)) * (width - paddingX);
+          const val = d[sensor] || 0;
+          const y = height - paddingY - ((val - minVal) / (maxVal - minVal)) * (height - paddingY * 2);
+          return `${x},${y}`;
+        }).join(" ");
+
+        poly.setAttribute('points', points);
+      }
+
+      async function renderWeeklyTable() {
+        const data = await callApi('/api/weekly');
+        const body = document.getElementById('weekly-body');
+        if (!body || !data) return;
+        body.innerHTML = '';
+        data.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.className = "border-b hover:bg-gray-50 transition";
+          tr.innerHTML = `
+            <td class="p-4 font-bold text-gray-600">${row.date}</td>
+            <td class="p-4 text-orange-600 font-black">${row.max_ph.toFixed(2)}</td>
+            <td class="p-4 text-blue-600 font-black">${row.max_oil.toFixed(1)}%</td>
+            <td class="p-4 text-emerald-600 font-black">${row.avg_level.toFixed(0)}%</td>
+          `;
+          body.appendChild(tr);
+        });
+      }
+
+      // Escutar mudanças nos radio buttons para carregar dados
+      document.querySelectorAll('input[name="n"]').forEach(input => {
+        input.addEventListener('change', () => {
+          if (input.id === 't-st-ph') updateHistory('ph', 'day');
+          if (input.id === 't-st-oil') updateHistory('oil', 'day');
+          if (input.id === 't-st-lvl') updateHistory('level', 'day');
+          if (input.id === 't-hist') renderWeeklyTable();
+          if (input.id === 't-supply') {
+            updateSupplyStats('day');
+            renderRefillHistory();
+          }
+        });
+      });
+
+      async function loadTanks() {
+        tanks = await callApi('/api/tanks') || [];
+        renderTanks();
+      }
+
+      function renderTanks() {
+        tankListContainer.innerHTML = '';
+        if (tanks.length === 0) {
+          tankListContainer.innerHTML = `
+            <div class="flex flex-col items-center gap-6">
+              <p class="text-xl font-bold text-gray-400">Nenhum tanque encontrado.</p>
+              <button onclick="openTankModal()" class="px-10 py-4 bg-gray-800 text-white rounded-2xl font-black shadow-lg hover:bg-black transition">+ Criar Primeiro Tanque</button>
+            </div>
+          `;
+          return;
+        }
+        tanks.forEach(tank => {
+          const div = document.createElement('div');
+          div.className = "relative group";
+          div.innerHTML = `
+            <div onclick="selectTank(${tank.id})" class="h-64 w-64 bg-blue-50 border-8 border-blue-200 rounded-[40px] flex flex-col items-center justify-center cursor-pointer hover:bg-blue-100 shadow-xl transition-all">
+              <span class="font-bold text-gray-500">${tank.name}</span>
+              <span class="text-6xl font-black text-blue-500">${tank.capacity}</span>
+              <span class="text-xl font-bold text-blue-400">Litros</span>
+              <span class="text-xs font-bold text-gray-400 mt-2">${tank.height}cm</span>
+            </div>
+            <button onclick="event.stopPropagation(); openTankModal(${tank.id})" class="absolute -top-2 -right-2 bg-white border-2 p-2 rounded-full shadow-md hover:scale-110 transition flex items-center justify-center">
+              <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+            </button>
+          `;
+          tankListContainer.appendChild(div);
+        });
+      }
+
+      function muteBuzzer() {
+          window.buzzerMuted = true;
+          if (window.isBuzzerOn) {
+              window.isBuzzerOn = false;
+              callApi('/api/buzzer', false);
+          }
+          const btn = document.getElementById('btn-mute-buzzer');
+          if (btn) {
+              btn.classList.replace('bg-red-500', 'bg-gray-500');
+              btn.classList.replace('hover:bg-red-600', 'hover:bg-gray-600');
+              btn.textContent = 'Som Silenciado';
+          }
+      }
+
+      function openTankModal(id = null) {
+        const btnDelete = document.getElementById('btn-delete-tank');
+        const modalTitle = document.getElementById('tank-modal-title');
+        const inputCalib = document.getElementById('input-tank-calib');
+        inputCalib.value = ""; // Limpar sempre ao abrir
+        
+        if (id) {
+          const tank = tanks.find(t => t.id === id);
+          inputTankId.value = tank.id;
+          inputTankName.value = tank.name;
+          inputTankCap.value = tank.capacity;
+          inputTankHeight.value = tank.height;
+          modalTitle.textContent = "Editar Tanque";
+          btnDelete.classList.remove('hidden');
+        } else {
+          inputTankId.value = "";
+          inputTankName.value = "";
+          inputTankCap.value = "";
+          inputTankHeight.value = "500";
+          modalTitle.textContent = "Novo Tanque";
+          btnDelete.classList.add('hidden');
+        }
+        document.getElementById('t-criar').checked = true;
+      }
+
+      async function salvarTanque() {
+        const payload = {
+          id: inputTankId.value ? parseInt(inputTankId.value) : null,
+          name: inputTankName.value || "Tanque",
+          capacity: parseFloat(inputTankCap.value),
+          height: parseFloat(inputTankHeight.value),
+          current_level: document.getElementById('input-tank-calib').value ? parseFloat(document.getElementById('input-tank-calib').value) : null
+        };
+        if (!payload.capacity || !payload.height) { alert("Preencha os valores!"); return; }
+        await callApi('/api/save_tank', payload);
+        await loadTanks();
+        document.getElementById('t-intro').checked = true;
+      }
+
+      async function removeTankFromEdit() {
+        if (confirm("Deseja eliminar este tanque?")) {
+          await callApi('/api/delete_tank', parseInt(inputTankId.value));
+          await loadTanks();
+          document.getElementById('t-intro').checked = true;
+        }
+      }
+
+      async function selectTank(id) {
+        const tank = tanks.find(t => t.id === id);
+        currentTankId = tank.id;
+        globalCapacity = tank.capacity;
+        globalHeight = tank.height;
+        homeTankTitle.textContent = tank.name;
+        document.getElementById('val-cap-txt').textContent = tank.capacity;
+        document.getElementById('val-height-txt').textContent = tank.height;
+        await callApi('/api/sync_tank', tank);
+        document.getElementById('t-home').checked = true;
+      }
+
+      function atualizarCalculos() {
+        try {
+            document.getElementById('val-oil-txt').textContent = rangeOil.value;
+            document.getElementById('val-lvl-txt').textContent = rangeLvl.value;
+
+            const targetLvlPct = parseFloat(rangeLvl.value) || 0;
+            const targetOilPct = parseFloat(rangeOil.value) || 0;
+            const cap = parseFloat(globalCapacity) || 500;
+
+            const txtLevel = document.getElementById('ui-level-percent').textContent.replace('%', '');
+            const currentLvlPct = parseFloat(txtLevel) || 0;
+
+            const txtOil = document.getElementById('ui-oil').textContent.replace('%', '');
+            const currentOilPct = parseFloat(txtOil) || 0;
+
+            // Volumes Atuais
+            const volAtual = cap * (currentLvlPct / 100);
+            const oleoAtual = volAtual * (currentOilPct / 100);
+            const aguaAtual = volAtual - oleoAtual;
+
+            // Volumes Alvo Iniciais (Baseados apenas nos sliders)
+            let volFinal = cap * (targetLvlPct / 100);
+            let oleoFinal = volFinal * (targetOilPct / 100);
+            let aguaFinal = volFinal - oleoFinal;
+
+            // CONSTRANGIMENTOS FÍSICOS (Não podemos retirar líquidos!)
+            
+            // 1. Se a matemática pedir para tirar água (aguaFinal < aguaAtual)
+            if (aguaFinal < aguaAtual) {
+                aguaFinal = aguaAtual; // Manter a água que já lá está
+                // Recalcular o volume final necessário para atingir a concentração de óleo desejada
+                if (targetOilPct < 100) {
+                    volFinal = aguaAtual / (1 - (targetOilPct / 100));
+                    oleoFinal = volFinal - aguaFinal;
+                }
+            }
+
+            // 2. Se a matemática pedir para tirar óleo (oleoFinal < oleoAtual)
+            if (oleoFinal < oleoAtual) {
+                oleoFinal = oleoAtual; // Manter o óleo que já lá está
+                if (targetOilPct > 0) {
+                    volFinal = oleoAtual / (targetOilPct / 100);
+                    aguaFinal = volFinal - oleoFinal;
+                }
+            }
+
+            // Para garantir que não adiciona líquidos se o alvo for menor que o atual de forma geral
+            let oleoAdd = oleoFinal - oleoAtual;
+            let aguaAdd = aguaFinal - aguaAtual;
+
+            if (oleoAdd < 0 || isNaN(oleoAdd)) oleoAdd = 0;
+            if (aguaAdd < 0 || isNaN(aguaAdd)) aguaAdd = 0;
+            
+            // Média móvel dos últimos 15 valores para o óleo a adicionar
+            if (!window.oleoAddHistory) window.oleoAddHistory = [];
+            
+            // Se o valor saltar bruscamente (ex: mexer no slider), limpamos o histórico para reagir logo
+            let lastOleo = window.oleoAddHistory.length > 0 ? window.oleoAddHistory[window.oleoAddHistory.length - 1] : oleoAdd;
+            if (Math.abs(oleoAdd - lastOleo) > 1.0) {
+                window.oleoAddHistory = [];
+            }
+            
+            window.oleoAddHistory.push(oleoAdd);
+            if (window.oleoAddHistory.length > 15) {
+                window.oleoAddHistory.shift();
+            }
+            
+            let avgOleoAdd = window.oleoAddHistory.reduce((a, b) => a + b, 0) / window.oleoAddHistory.length;
+            
+            // Atualizar UI
+            resOleoVal.textContent = avgOleoAdd.toFixed(1);
+            document.getElementById('res-agua-val').textContent = aguaAdd.toFixed(1);
+            document.getElementById('info-vol-txt').textContent = volFinal.toFixed(0) + "L";
+            
+            // Guardar volume final real para a API
+            window.realTargetVol = volFinal;
+
+        } catch (e) {
+            resOleoVal.textContent = "0.0";
+            document.getElementById('res-agua-val').textContent = "0.0";
+        }
+      }
+
+      async function addManual(type) {
+        const title = `Adicionar ${type === 'water' ? 'ÁGUA' : 'ÓLEO'} (L)`;
+        openNumpad(title, async (val) => {
+          if (val > 0 && !isNaN(val)) {
+            let payload = {};
+            const currentPct = parseFloat(document.getElementById('ui-level-percent').textContent) / 100 || 0;
+            const volAtual = globalCapacity * currentPct;
+
+            if (type === 'water') {
+                payload = {
+                    target_level_percent: ((volAtual + val) / globalCapacity) * 100,
+                    target_oil_percent: 0,
+                    oil_to_add: 0 // Backend opens water valve because target_level > current_level
+                };
+            } else {
+                payload = {
+                    target_level_percent: currentPct * 100, // No extra water
+                    target_oil_percent: 0,
+                    oil_to_add: val // Backend turns on oil pump
+                };
+            }
+            
+            // Forçar mudança visual de ecrã para PUMPING
+            document.getElementById('t-pumping').checked = true;
+            await callApi('/api/fill', payload);
+          }
+        });
+      }
+
+      let schedH = 19;
+      let schedM = 0;
+      function adjustTime(type, delta) {
+          if (type === 'h') {
+              schedH = (schedH + delta + 24) % 24;
+          } else {
+              schedM = (schedM + delta + 60) % 60;
+          }
+          document.getElementById('email-schedule-h').textContent = schedH.toString().padStart(2, '0');
+          document.getElementById('email-schedule-m').textContent = schedM.toString().padStart(2, '0');
+          updateEmailSchedule();
+      }
+
+      async function updateEmailSchedule() {
+          const recipient = document.getElementById('email-recipient').value;
+          const senderEmail = document.getElementById('sender-email').value;
+          const senderPassword = document.getElementById('sender-password').value;
+          const time = `${schedH.toString().padStart(2, '0')}:${schedM.toString().padStart(2, '0')}`;
+          await callApi('/api/set_email_schedule', { time, recipient, senderEmail, senderPassword });
+      }
+
+      async function loadEmailSchedule() {
+          const cfg = await callApi('/api/get_email_schedule');
+          if (cfg) {
+              document.getElementById('email-recipient').value = cfg.recipient || 'admin@emulpro.com';
+              document.getElementById('sender-email').value = cfg.sender_email || 'f.f.nunes2005@gmail.com';
+              document.getElementById('sender-password').value = cfg.sender_password || 'kgdddkiqsozauqxb';
+              const parts = (cfg.time || '19:00').split(':');
+              schedH = parseInt(parts[0], 10);
+              schedM = parseInt(parts[1], 10);
+              document.getElementById('email-schedule-h').textContent = schedH.toString().padStart(2, '0');
+              document.getElementById('email-schedule-m').textContent = schedM.toString().padStart(2, '0');
+          }
+      }
+
+      async function sendReportEmail() {
+        const recipient = document.getElementById('email-recipient').value;
+        const btn = document.getElementById('btn-send-email');
+        if(!recipient) {
+            alert('Por favor, introduza um e-mail de destino.');
+            return;
+        }
+        
+        btn.disabled = true;
+        btn.textContent = 'A enviar...';
+        
+        try {
+            const result = await callApi('/api/send_email', recipient);
+            if(result && result.status === 'success') {
+                alert('E-mail enviado com sucesso!');
+            } else {
+                alert('Erro ao enviar e-mail: ' + (result ? result.message : 'Desconhecido'));
+            }
+        } catch(e) {
+            alert('Erro ao comunicar com o sistema: ' + e);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = 'Enviar Agora';
+        }
+      }
+
+      async function fetchSensors() {
+        const data = await callApi('/api/sensors');
+        if (!data) return;
+        
+        // Se o tanque foi alterado externamente (via API), atualiza a interface
+        if (data.tank_id && data.tank_id !== currentTankId) {
+            currentTankId = data.tank_id;
+            globalCapacity = data.capacity || 500;
+            globalHeight = data.height || 500;
+            homeTankTitle.textContent = data.tank_name || "Tanque";
+            document.getElementById('val-cap-txt').textContent = globalCapacity;
+            document.getElementById('val-height-txt').textContent = globalHeight;
+
+            // Se o utilizador estiver no menu de seleção, transita automaticamente para o painel principal do tanque
+            if (document.getElementById('t-intro').checked) {
+                document.getElementById('t-home').checked = true;
+            }
+        }
+
+        document.getElementById('ui-ph').textContent = data.ph.toFixed(2);
+        document.getElementById('ui-oil').textContent = data.oil.toFixed(1) + '%';
+        document.getElementById('ui-level-percent').textContent = data.level_percent.toFixed(0) + '%';
+        
+        const volAtual = ((data.level_percent/100)*globalCapacity);
+        document.getElementById('home-vol-atual').textContent = volAtual.toFixed(0);
+        document.getElementById('home-vol-total').textContent = globalCapacity;
+        
+        const bar = document.getElementById('ui-tank-bar');
+        if (bar) {
+            bar.style.height = data.level_percent + '%';
+            const pctOil = Math.min(100, Math.max(0, data.oil || 0));
+            // Óleo flutua na água, por isso o topo (0% até pctOil) é amarelo, o resto é azul
+            bar.style.background = `linear-gradient(to bottom, #eab308 0%, #eab308 ${pctOil}%, #60a5fa ${pctOil}%, #60a5fa 100%)`;
+        }
+
+        // Atualizar aba Visualizar Tanque
+        const vtLevel = document.getElementById('vt-level');
+        if (vtLevel) {
+            vtLevel.textContent = data.level_percent.toFixed(1) + '%';
+            document.getElementById('vt-volume').textContent = volAtual.toFixed(1) + ' L';
+            
+            const oleoVol = volAtual * (data.oil / 100);
+            const aguaVol = volAtual - oleoVol;
+            
+            document.getElementById('vt-vol-oil').textContent = oleoVol.toFixed(1) + ' L';
+            document.getElementById('vt-vol-water').textContent = aguaVol.toFixed(1) + ' L';
+            document.getElementById('vt-oil').textContent = data.oil.toFixed(1) + '%';
+            document.getElementById('vt-ph').textContent = data.ph.toFixed(2);
+            document.getElementById('vt-turbidity').textContent = (data.turbidity !== undefined ? data.turbidity.toFixed(1) : '0.0') + ' NTU';
+            document.getElementById('vt-conductivity').textContent = (data.conductivity !== undefined ? data.conductivity.toFixed(1) : '0.0') + ' µS';
+        }
+
+        // Atualizar cálculos para refletir os novos valores do sensor
+        atualizarCalculos();
+
+        // Lógica de Alertas
+        const alertContainer = document.getElementById('alert-container');
+        const alertMessage = document.getElementById('alert-message');
+        if (alertContainer && alertMessage) {
+             let alerts = [];
+             const cardOil = document.getElementById('card-oil');
+             if (data.oil < 5.0 || data.oil > 7.0) {
+                 alerts.push(`Concentração de óleo inadequada (${data.oil.toFixed(1)}%). O ideal é entre 5% e 7%.`);
+                 if (cardOil) cardOil.classList.replace('border-green-400', 'border-red-500');
+             } else {
+                 if (cardOil) cardOil.classList.replace('border-red-500', 'border-green-400');
+             }
+             
+             const cardLevel = document.getElementById('card-level');
+             if (data.level_percent < 30.0) {
+                 alerts.push(`Nível do tanque muito baixo (${data.level_percent.toFixed(0)}%). Recomendada reposição.`);
+                 if (cardLevel) cardLevel.classList.replace('border-green-400', 'border-red-500');
+             } else {
+                 if (cardLevel) cardLevel.classList.replace('border-red-500', 'border-green-400');
+             }
+
+             if (alerts.length > 0) {
+                 alertMessage.innerHTML = alerts.join('<br>');
+                 alertContainer.classList.remove('hidden');
+                 
+                 // Ligar o buzzer se não estiver silenciado
+                 if (!window.buzzerMuted && !window.isBuzzerOn) {
+                     window.isBuzzerOn = true;
+                     callApi('/api/buzzer', true);
+                 }
+             } else {
+                 alertContainer.classList.add('hidden');
+                 // Restabelecer o som e desligar buzzer quando tudo volta ao normal
+                 if (window.isBuzzerOn) {
+                     window.isBuzzerOn = false;
+                     callApi('/api/buzzer', false);
+                 }
+                 window.buzzerMuted = false;
+                 
+                 const btnMute = document.getElementById('btn-mute-buzzer');
+                 if (btnMute) {
+                     btnMute.classList.replace('bg-gray-500', 'bg-red-500');
+                     btnMute.classList.replace('hover:bg-gray-600', 'hover:bg-red-600');
+                     btnMute.textContent = 'Desligar Som';
+                 }
+             }
+        }
+
+        if (data.fill_active) document.getElementById('t-pumping').checked = true;
+        else if (document.getElementById('t-pumping').checked) document.getElementById('t-home').checked = true;
+      }
+
+      async function confirmarReposicao() {
+        // Usar o volume final real que foi ajustado pelos constrangimentos físicos
+        let targetPct = parseFloat(rangeLvl.value);
+        if (window.realTargetVol) {
+            targetPct = (window.realTargetVol / globalCapacity) * 100;
+        }
+
+        const payload = {
+          target_level_percent: targetPct,
+          target_oil_percent: parseFloat(rangeOil.value),
+          oil_to_add: parseFloat(resOleoVal.textContent)
+        };
+        await callApi('/api/fill', payload);
+      }
+
+      async function cancelarEnchimento() {
+        if (confirm("Cancelar enchimento?")) {
+          await callApi('/api/cancel');
+          document.getElementById('t-home').checked = true;
+        }
+      }
+
+      window.addEventListener('pywebviewready', () => {
+        loadTanks();
+        loadEmailSchedule();
+      });
+
+      // Fallback caso o evento já tenha disparado ou não dispare (testes no browser)
+      setTimeout(() => {
+        if (tanks.length === 0) loadTanks();
+      }, 1000);
+
+      rangeOil.oninput = atualizarCalculos;
+      rangeLvl.oninput = atualizarCalculos;
+      setInterval(fetchSensors, 2000);
+
+      // Auto-refresh dos tanques quando o menu Intro/Gestor de Tanques está ativo
+      setInterval(() => {
+        if (document.getElementById('t-intro').checked) {
+          loadTanks();
+        }
+      }, 5000);
+
+      // Refresh imediato ao entrar no menu
+      document.getElementById('t-intro').addEventListener('change', (e) => {
+        if (e.target.checked) {
+          loadTanks();
+        }
+      });
+    </script>
+</body>
+</html>

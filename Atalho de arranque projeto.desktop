@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=EmulPro
+Comment=Aplicação de Gestão de Fluidos
+Exec=/bin/bash /home/emulsaosmart/Desktop/EmulPro/start_emulpro.sh
+Icon=utilities-terminal
+Terminal=false
+Type=Application

@@ -1,0 +1,10 @@
+[
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\marti\\Desktop\\AppSmartEmulsion\\app\\emulsao_smart.db"
+  },
+  {
+    "type": "sqlite",
+    "path": "c:\\Users\\marti\\Desktop\\SmartEmulsion\\emulsao_smart.db"
+  }
+]
